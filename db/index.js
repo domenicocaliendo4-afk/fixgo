@@ -1,6 +1,8 @@
 /**
  * Database pool singleton. Only file that may construct new Pool().
- * All query access goes through named functions in db/*.js.
+ * Exports BOTH interfaces used across the codebase:
+ *   - getPool()  → for files doing: const { getPool } = require('./index')
+ *   - query(...) → for files doing: const pool = require('./index'); pool.query(...)
  */
 const { Pool } = require('pg');
 
@@ -13,4 +15,8 @@ function getPool() {
   return pool;
 }
 
-module.exports = { getPool };
+module.exports = {
+  getPool,
+  query: (...args) => pool.query(...args),
+  connect: (...args) => pool.connect(...args),
+};
