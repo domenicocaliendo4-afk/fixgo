@@ -1,0 +1,24 @@
+{
+  "name": "fixgo",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node migrate.js && node server.js",
+    "dev": "node build.js && node migrate.js && node server.js",
+    "build": "node build.js",
+    "migrate": "node migrate.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "esbuild": "^0.24.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4",
+    "pg": "^8.11.3",
+    "uuid": "^9.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0"
+  }
+}

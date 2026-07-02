@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FixGo — Professionisti a domicilio a Milano</title>
+  <meta name="description" content="Idraulici, elettricisti e car wash verificati a Milano. Prenota in pochi tap, zero commissioni.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #2563EB;
+      --primary-dark: #1d4ed8;
+      --secondary: #F59E0B;
+      --bg: #F8FAFC;
+      --text: #1E293B;
+      --text-light: #64748B;
+      --white: #ffffff;
+      --border: #E2E8F0;
+      --success: #10B981;
+      --danger: #EF4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(15, 23, 42, 0.85) 0%,
+        rgba(15, 23, 42, 0.3) 50%,
+        rgba(15, 23, 42, 0.1) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 24px 20px 28px;
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      opacity: 0.9;
+      line-height: 1.5;
+      max-width: 300px;
+    }
+
+    /* ─── VALUE PROPS ─── */
+    .props {
+      display: flex;
+      gap: 0;
+      padding: 0 20px;
+      margin: -20px 16px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .prop-card {
+      flex: 1;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      border: 1px solid var(--border);
+    }
+
+    .prop-card + .prop-card { margin-left: 10px; }
+
+    .prop-icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .prop-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .prop-sub {
+      font-size: 11px;
+      color: var(--text-light);
+      line-height: 1.3;
+    }
+
+    /* ─── SERVICES ─── */
+    .section {
+      padding: 28px 20px 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow .2s;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 4px 16px rgba(37,99,235,.12);
+    }
+
+    .service-icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .icon-carwash { background: #EFF6FF; }
+    .icon-idraulica { background: #F0FDF4; }
+    .icon-elettricista { background: #FFF7ED; }
+    .icon-pulizie { background: #FDF4FF; }
+
+    .service-info { flex: 1; }
+    .service-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+    .service-desc { font-size: 13px; color: var(--text-light); line-height: 1.4; }
+    .service-price {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      background: #EFF6FF;
+      border-radius: 8px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-section {
+      padding: 28px 20px 0;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--secondary);
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text { font-size: 14px; font-weight: 600; line-height: 1.4; }
+
+    /* ─── LEAD FORM ─── */
+    .form-section {
+      padding: 28px 20px 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      margin: 28px 0 0;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .form-section .section-label { color: rgba(255,255,255,0.7); }
+    .form-section .section-title { color: white; }
+    .form-section .section-sub { color: rgba(255,255,255,0.8); }
+
+    .lead-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      transition: border-color .15s, background .15s;
+      min-height: 50px;
+      backdrop-filter: blur(8px);
+    }
+
+    .form-input::placeholder { color: rgba(255,255,255,0.65); }
+    .form-input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: inherit;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      min-height: 50px;
+      appearance: none;
+      -webkit-appearance: none;
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+    }
+
+    .form-select option {
+      background: var(--primary-dark);
+      color: white;
+    }
+
+    .form-select:focus { outline: none; border-color: rgba(255,255,255,0.6); }
+
+    .btn-submit {
+      background: var(--secondary);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      min-height: 52px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .1s, opacity .2s;
+      font-family: inherit;
+    }
+
+    .btn-submit:active { transform: scale(.98); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+
+    .form-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* Success state */
+    .form-success {
+      text-align: center;
+      padding: 24px 0;
+      color: white;
+    }
+
+    .form-success h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .form-success p {
+      font-size: 14px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .checkmark {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 32px;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: #0F172A;
+      color: white;
+      padding: 28px 20px 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── LOADING SPINNER ─── */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── ERROR ─── */
+    .form-error {
+      color: #FCA5A5;
+      font-size: 13px;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      padding: 0 20px 28px;
+    }
+
+    .cta-inner {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .cta-inner h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .cta-inner p {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: transform .1s;
+    }
+
+    .cta-btn:active { transform: scale(.97); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img
+      src="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/generated-images/company_169354/f5c2a20b-d326-4531-a725-ba6d34bb373e.jpg"
+      alt="Professionista FixGo a domicilio a Milano"
+      class="hero-img"
+      loading="eager"
+    >
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Milano — attivo oggi</span>
+      <h1>Il professionista giusto, a casa tua.</h1>
+      <p>Idraulici, elettricisti, car wash — tutti verificati. Prenota subito, senza commissioni.</p>
+    </div>
+  </section>
+
+  <!-- VALUE PROPS -->
+  <div class="props">
+    <div class="prop-card">
+      <span class="prop-icon">⚡</span>
+      <div class="prop-title">Prontezza</div>
+      <div class="prop-sub">Intervento oggi</div>
+    </div>
+    <div class="prop-card">
+      <span class="prop-icon">✓</span>
+      <div class="prop-title">Verificati</div>
+      <div class="prop-sub">Certificati e recensisiti</div>
+    </div>
+    <div class="prop-card">
+      <span class="prop-icon">€</span>
+      <div class="prop-title">Zero commissioni</div>
+      <div class="prop-sub">Prezzi trasparenti</div>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-inner">
+      <h3>Hai un problema urgente?</h3>
+      <p>Descrivilo e ti connettiamo al professionista più vicino.</p>
+      <a href="#lead-form" class="cta-btn">Prenota subito →</a>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <div class="section-label">Servizi disponibili</div>
+    <div class="section-title">Tutto per la casa.</div>
+    <div class="section-sub">Tutti i professionisti sono verificati e assicurati.</div>
+
+    <div class="service-card">
+      <div class="service-icon-wrap icon-carwash">🚿</div>
+      <div class="service-info">
+        <div class="service-name">Car Wash a domicilio</div>
+        <div class="service-desc">Lavaggio esterno e interno, lucidatura, igienizzazione</div>
+      </div>
+      <div class="service-price">da €25</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon-wrap icon-idraulica">🔧</div>
+      <div class="service-info">
+        <div class="service-name">Idraulica</div>
+        <div class="service-desc">Riparazioni, perdite, sostituzione rubinetteria, scarichi</div>
+      </div>
+      <div class="service-price">da €40</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon-wrap icon-elettricista">⚡</div>
+      <div class="service-info">
+        <div class="service-name">Elettricista</div>
+        <div class="service-desc">Guasti, impianti, citofoni, lampadari, prese</div>
+      </div>
+      <div class="service-price">da €45</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon-wrap icon-pulizie">🧹</div>
+      <div class="service-info">
+        <div class="service-name">Pulizie domestiche</div>
+        <div class="service-desc">Pulizia ordinaria e straordinaria, finestre, cantinette</div>
+      </div>
+      <div class="service-price">da €30</div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="section-label">Come funziona</div>
+    <div class="section-title">In 3 step, senza stress.</div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Descrivi il problema o carica una foto con l'AI</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Scegli il professionista verificato più vicino</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Paga in sicurezza e lasciati votare</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD FORM -->
+  <section class="form-section" id="lead-form">
+    <div class="section-label">Iscriviti gratuitamente</div>
+    <div class="section-title">Sii il primo a sapere quando apriamo.</div>
+    <div class="section-sub">Ti contattiamo appena il servizio è attivo nella tua zona.</div>
+
+    <form class="lead-form" id="leadForm">
+      <input
+        class="form-input"
+        type="text"
+        name="name"
+        placeholder="Il tuo nome"
+        required
+        autocomplete="name"
+      >
+      <input
+        class="form-input"
+        type="email"
+        name="email"
+        placeholder="La tua email"
+        required
+        autocomplete="email"
+      >
+      <select class="form-select" name="service" required>
+        <option value="" disabled selected style="color: rgba(255,255,255,0.65)">Servizio che ti interessa</option>
+        <option value="carwash">Car Wash a domicilio</option>
+        <option value="idraulica">Idraulica</option>
+        <option value="elettricista">Elettricista</option>
+        <option value="pulizie">Pulizie domestiche</option>
+        <option value="altro">Altro / Non so ancora</option>
+      </select>
+      <div class="form-error" id="formError"></div>
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">Avvisami quando apre →</span>
+      </button>
+      <p class="form-note">Nessuno spam. Solo aggiornamenti reali.</p>
+    </form>
+
+    <div class="form-success" id="formSuccess" style="display:none">
+      <div class="checkmark">✓</div>
+      <h3>Perfetto!</h3>
+      <p>Ti contatteremo appena FixGo è attivo nella tua zona.<br>Nel frattempo, manda pure ai tuoi amici.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">FixGo</div>
+    <div class="footer-tagline">Servizi a domicilio — Milano</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Termini</a>
+      <a href="#">Contatti</a>
+    </div>
+    <div class="footer-copy">© 2026 FixGo — Tutti i diritti riservati</div>
+  </footer>
+
+  <script>
+    (function() {
+      var form = document.getElementById('leadForm');
+      var submitBtn = document.getElementById('submitBtn');
+      var btnText = document.getElementById('btnText');
+      var formError = document.getElementById('formError');
+      var formSuccess = document.getElementById('formSuccess');
+
+      function validateEmail(email) {
+        return typeof email === 'string' && email.includes('@') && email.includes('.');
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        formError.textContent = '';
+
+        var name = form.name.value.trim();
+        var email = form.email.value.trim();
+        var service = form.service.value;
+
+        if (!name) { formError.textContent = 'Inserisci il tuo nome.'; return; }
+        if (!validateEmail(email)) { formError.textContent = 'Inserisci un indirizzo email valido.'; return; }
+        if (!service) { formError.textContent = 'Seleziona un servizio.'; return; }
+
+        submitBtn.disabled = true;
+        btnText.innerHTML = '<span class="spinner"></span> Invio in corso...';
+
+        try {
+          var res = await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, email: email, service: service })
+          });
+
+          var data = await res.json();
+
+          if (!res.ok) {
+            formError.textContent = data.error || 'Errore. Riprova.';
+            submitBtn.disabled = false;
+            btnText.textContent = 'Avvisami quando apre →';
+            return;
+          }
+
+          // Show success
+          form.style.display = 'none';
+          formSuccess.style.display = 'block';
+        } catch (err) {
+          formError.textContent = 'Connessione fallita. Riprova.';
+          submitBtn.disabled = false;
+          btnText.textContent = 'Avvisami quando apre →';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
