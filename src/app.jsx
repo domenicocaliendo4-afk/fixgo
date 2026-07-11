@@ -705,6 +705,9 @@ function BookingsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const STATUS_LABELS = { pending: 'In attesa', confirmed: 'Confermata', completed: 'Completata', cancelled: 'Annullata' };
+  const SERVICE_LABELS = { idraulica: 'Idraulica', elettricista: 'Elettricista', carwash: 'Car Wash', pulizie: 'Pulizie', altro: 'Altro' };
+
   useEffect(() => {
     api.get('/api/bookings')
       .then(data => setBookings(data.bookings || []))
@@ -712,23 +715,30 @@ function BookingsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return h('div', { className: 'loading-page' }, 'Caricamento...');
+  if (loading) return h('div', { className: 'loading-page' }, h('div', { className: 'spinner' }), h('p', null, 'Carico le tue prenotazioni'));
   if (error) return h('div', { className: 'page' }, h('div', { className: 'error-msg' }, error));
 
   return h(Fragment, null,
     h('div', { className: 'page' },
-      h('h2', { className: 'page-title' }, 'Le Mie Prenotazioni'),
+      h('h2', { className: 'page-title' }, 'Le mie prenotazioni'),
       bookings.length === 0
-        ? h('div', { style: 'text-align:center;color:var(--text-light);padding:40px 0' },
-            h('p', null, 'Nessuna prenotazione ancora.'),
-            h(Link, { to: '/', style: 'color:var(--primary);font-weight:600;margin-top:8px;display:inline-block' }, 'Prenota ora →')
+        ? h('div', { className: 'empty-state' },
+            h('div', { className: 'empty-state-icon' }, Icon('calendar', 26)),
+            h('p', { className: 'empty-state-title' }, 'Nessuna prenotazione'),
+            h('p', { className: 'empty-state-sub' }, 'Quando prenoti un professionista, lo trovi qui.'),
+            h(Link, { to: '/', className: 'btn-primary', style: 'display:block;text-align:center;margin-top:16px' }, 'Prenota ora')
           )
         : bookings.map(b =>
-            h('div', { key: b.id, className: 'booking-card' },
-              h('span', { className: `booking-status status-${b.status}` }, b.status),
-              h('div', { className: 'booking-service' }, b.service_type),
+            h('div', { key: b.id, className: `booking-card status-${b.status}` },
+              h('div', { className: 'booking-card-top' },
+                h('div', { className: 'booking-service' }, SERVICE_LABELS[b.service_type] || b.service_type),
+                h('span', { className: `booking-status status-${b.status}` }, STATUS_LABELS[b.status] || b.status)
+              ),
               h('div', { className: 'booking-meta' }, b.address),
-              b.scheduled_at && h('div', { className: 'booking-meta' }, new Date(b.scheduled_at).toLocaleDateString('it-IT')),
+              b.scheduled_at && h('div', { className: 'booking-meta' },
+                new Date(b.scheduled_at).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'long' }) +
+                ' · ' + new Date(b.scheduled_at).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
+              ),
               b.price && h('div', { className: 'booking-price' }, '€' + parseFloat(b.price).toFixed(2))
             )
           )
@@ -1253,7 +1263,7 @@ function BookingConfirmPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return h('div', { className: 'loading-page' }, 'Caricamento...');
+  if (loading) return h('div', { className: 'loading-page' }, h('div', { className: 'spinner' }), h('p', null, 'Un attimo…'));
   if (error) return h('div', { className: 'page' }, h('div', { className: 'error-msg' }, error));
   if (!booking) return h('div', { className: 'page' }, h('p', null, 'Prenotazione non trovata.'));
 
@@ -2537,7 +2547,7 @@ function ProDetailPage() {
 // === PROTECTED ROUTE ===
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
-  if (loading) return h('div', { className: 'loading-page' }, 'Caricamento...');
+  if (loading) return h('div', { className: 'loading-page' }, h('div', { className: 'spinner' }), h('p', null, 'Un attimo…'));
   if (!user) return h(Fragment, null,
     h('div', { style: 'text-align:center;padding:60px 20px' },
       h('p', { style: 'color:var(--text-light);margin-bottom:16' }, 'Effettua il login per continuare'),
