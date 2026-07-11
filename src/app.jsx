@@ -221,9 +221,9 @@ class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return h('div', { style: 'padding:40px 20px;text-align:center' },
         h('h2', { style: 'font-size:18px;font-weight:700;margin-bottom:12px' }, 'Si è verificato un errore'),
-        h('p', { style: 'color:#64748B;font-size:14px;margin-bottom:20px' }, 'Ricarica la pagina per continuare'),
+        h('p', { style: 'color:#6C7268;font-size:14px;margin-bottom:20px' }, 'Ricarica la pagina per continuare'),
         h('button', {
-          style: 'background:#2563EB;color:white;padding:12px 24px;border:none;border-radius:10px;font-weight:600;cursor:pointer',
+          style: 'background:#1E5B3E;color:white;padding:12px 24px;border:none;border-radius:10px;font-weight:600;cursor:pointer',
           onClick: () => window.location.reload()
         }, 'Ricarica')
       );
@@ -575,7 +575,7 @@ function BookPage() {
             h('span', { className: 'label' }, 'Professionista'), h('span', { className: 'value' }, professionalName)
           ),
           h('div', { className: 'summary-row' },
-            h('span', { className: 'label' }, 'Stima prezzo'), h('span', { className: 'value', style: 'color:#15803D' }, priceDisplay)
+            h('span', { className: 'label' }, 'Stima prezzo'), h('span', { className: 'value', style: 'color:#1E5B3E' }, priceDisplay)
           )
         ),
         h('button', { className: 'btn-primary', onClick: handleConfirm, disabled: loading },
@@ -672,7 +672,7 @@ function ConfirmScreen({ booking, navigate }) {
         h('span', { className: 'confirm-row-icon' }, '💰'),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Prezzo stimato'),
-          h('div', { className: 'confirm-row-value', style: 'color:#15803D' }, '€' + parseFloat(booking.price).toFixed(2))
+          h('div', { className: 'confirm-row-value', style: 'color:#1E5B3E' }, '€' + parseFloat(booking.price).toFixed(2))
         )
       ),
       booking.notes && h('div', { className: 'confirm-row' },
@@ -800,7 +800,7 @@ function MapPage() {
     // User location marker (blue pulse)
     const userIcon = L.divIcon({
       className: '',
-      html: '<div style="width:16px;height:16px;background:#2563EB;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>',
+      html: '<div style="width:16px;height:16px;background:#1E5B3E;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>',
       iconSize: [16, 16],
       iconAnchor: [8, 8],
     });
@@ -813,7 +813,7 @@ function MapPage() {
       const stars = pro.rating ? '★'.repeat(Math.round(parseFloat(pro.rating))) : '★'.repeat(3);
       const serviceLabels = { carwash: '🚿 Car Wash', idraulica: '🔧 Idraulica', elettricista: '⚡ Elettricista', altro: '🔧 Servizio' };
       const label = serviceLabels[pro.service_type] || pro.service_type;
-      const color = urgency === 'high' ? '#EF4444' : '#2563EB';
+      const color = urgency === 'high' ? '#C43D2F' : '#1E5B3E';
 
       const icon = L.divIcon({
         className: '',
@@ -834,15 +834,15 @@ function MapPage() {
 
       const marker = L.marker([pro.lat, pro.lng], { icon }).addTo(map);
       const reviewLine = pro.review_count
-        ? `${pro.review_count} recens. · <a href="/pro/${pro.id}" style="color:#0891B2;font-weight:600;text-decoration:none">Vedi profilo →</a>`
-        : `<a href="/pro/${pro.id}" style="color:#0891B2;font-weight:600;text-decoration:none">Vedi profilo →</a>`;
+        ? `${pro.review_count} recens. · <a href="/pro/${pro.id}" style="color:#1E5B3E;font-weight:600;text-decoration:none">Vedi profilo →</a>`
+        : `<a href="/pro/${pro.id}" style="color:#1E5B3E;font-weight:600;text-decoration:none">Vedi profilo →</a>`;
       const popupContent = `
         <div style="min-width:160px;font-family:Inter,sans-serif">
           <strong style="font-size:14px">${pro.name || 'Professionista FixGo'}</strong>
-          <div style="font-size:12px;color:#64748B;margin:4px 0">${label}</div>
-          <div style="font-size:13px;color:#F59E0B;font-weight:700">${stars} ${parseFloat(pro.rating || 0).toFixed(1)}</div>
-          <div style="font-size:12px;color:#64748B">📍 ${dist} km da te</div>
-          <div style="font-size:11px;color:#94A3B8;margin-top:4px">${pro.completed_jobs || 0} servizi · ${reviewLine}</div>
+          <div style="font-size:12px;color:#6C7268;margin:4px 0">${label}</div>
+          <div style="font-size:13px;color:#B98A2F;font-weight:700">${stars} ${parseFloat(pro.rating || 0).toFixed(1)}</div>
+          <div style="font-size:12px;color:#6C7268">📍 ${dist} km da te</div>
+          <div style="font-size:11px;color:#9AA096;margin-top:4px">${pro.completed_jobs || 0} servizi · ${reviewLine}</div>
         </div>
       `;
       marker.bindPopup(popupContent);
@@ -866,14 +866,14 @@ function MapPage() {
   };
 
   const serviceLabels = { carwash: 'Lavaggio Auto', idraulica: 'Idraulica', elettricista: 'Elettricista', altro: 'Altro' };
-  const urgencyColors = { high: '#EF4444', medium: '#F59E0B', low: '#10B981' };
-  const urgencyBadge = urgency ? h('span', { style: `background:${urgencyColors[urgency] || '#64748B'};color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700` },
+  const urgencyColors = { high: '#C43D2F', medium: '#B98A2F', low: '#2E7D53' };
+  const urgencyBadge = urgency ? h('span', { style: `background:${urgencyColors[urgency] || '#6C7268'};color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700` },
     urgency === 'high' ? '🔴 Urgente' : urgency === 'medium' ? '🟡 Medio' : '🟢 Non urgente'
   ) : null;
 
   return h(Fragment, null,
     // Header
-    h('div', { style: 'background:linear-gradient(135deg,#0891B2 0%,#0E7490 100%);color:white;padding:24px 16px 20px;border-radius:0 0 20px 20px;margin-bottom:16px' },
+    h('div', { style: 'background:linear-gradient(135deg,#1E5B3E 0%,#14432E 100%);color:white;padding:24px 16px 20px;border-radius:0 0 20px 20px;margin-bottom:16px' },
       h('button', { onClick: () => navigate(-1), style: 'background:none;border:none;color:rgba(255,255,255,.8);font-size:13px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:4px;padding:0' },
         Icon('arrowLeft', 16), 'Indietro'
       ),
@@ -889,11 +889,11 @@ function MapPage() {
       h('div', { style: 'display:flex;gap:8px;margin-top:12px' },
         h('button', {
           onClick: () => setViewMode('map'),
-          style: `flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:${viewMode==='map'?'white':'rgba(255,255,255,.2)'};color:${viewMode==='map'?'#0891B2':'white'}`
+          style: `flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:${viewMode==='map'?'white':'rgba(255,255,255,.2)'};color:${viewMode==='map'?'#1E5B3E':'white'}`
         }, '🗺️ Mappa'),
         h('button', {
           onClick: () => setViewMode('list'),
-          style: `flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:${viewMode==='list'?'white':'rgba(255,255,255,.2)'};color:${viewMode==='list'?'#0891B2':'white'}`
+          style: `flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:${viewMode==='list'?'white':'rgba(255,255,255,.2)'};color:${viewMode==='list'?'#1E5B3E':'white'}`
         }, '📋 Lista')
       )
     ),
@@ -932,10 +932,10 @@ function MapPage() {
                 pro.verified ? ' · ✓ Verificato' : '',
                 pro.completed_jobs ? ` · ${pro.completed_jobs} servizi` : ''
               ),
-              h('div', { style: 'font-size:13px;color:#F59E0B;font-weight:700;display:flex;align-items:center;gap:6px' },
+              h('div', { style: 'font-size:13px;color:#B98A2F;font-weight:700;display:flex;align-items:center;gap:6px' },
                 '★ ' + stars,
                 pro.review_count
-                  ? h(Link, { to: `/pro/${pro.id}`, onClick: e => e.stopPropagation(), style: 'color:#0891B2;font-size:12px;font-weight:600;text-decoration:none' }, `(${pro.review_count} rec.) →`)
+                  ? h(Link, { to: `/pro/${pro.id}`, onClick: e => e.stopPropagation(), style: 'color:#1E5B3E;font-size:12px;font-weight:600;text-decoration:none' }, `(${pro.review_count} rec.) →`)
                   : null
               )
             ),
@@ -980,11 +980,11 @@ function MapPage() {
         h(Link, {
           to: `/pro/${activePro.id}`,
           onClick: () => setActivePro(null),
-          style: 'width:48px;background:#F0F9FF;color:#0891B2;border:1px solid #BAE6FD;border-radius:12px;font-size:18px;display:flex;align-items:center;justify-content:center;text-decoration:none'
+          style: 'width:48px;background:#F0F9FF;color:#1E5B3E;border:1px solid #BAE6FD;border-radius:12px;font-size:18px;display:flex;align-items:center;justify-content:center;text-decoration:none'
         }, '👤'),
         activePro.phone && h('a', {
           href: 'tel:' + activePro.phone,
-          style: 'width:48px;background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;border-radius:12px;font-size:20px;display:flex;align-items:center;justify-content:center;text-decoration:none'
+          style: 'width:48px;background:#EAF0E7;color:#1E5B3E;border:1px solid #CFE0CC;border-radius:12px;font-size:20px;display:flex;align-items:center;justify-content:center;text-decoration:none'
         }, '📞')
       )
     ),
@@ -1226,7 +1226,7 @@ function PhotoAnalyzerPage() {
 
           h('button', {
             onClick: viewMap,
-            style: 'display:block;width:100%;background:linear-gradient(135deg,#0891B2,#0E7490);color:white;font-size:15px;font-weight:700;padding:14px;border:none;border-radius:12px;margin-top:10px;min-height:48px'
+            style: 'display:block;width:100%;background:linear-gradient(135deg,#1E5B3E,#14432E);color:white;font-size:15px;font-weight:700;padding:14px;border:none;border-radius:12px;margin-top:10px;min-height:48px'
           }, '🗺️ Vedi sulla mappa — professionisti vicino a te')
         )
       )
@@ -1390,9 +1390,9 @@ function ProVerifyPage() {
   }
 
   const statusMessages = {
-    in_review: { text: 'Verifica in corso', sub: 'Il tuo documento è in fase di revisione. Ti informeremo quando il controllo sarà completato.', color: '#F59E0B', icon: '⏳' },
-    rejected: { text: 'Verifica fallita', sub: 'Non abbiamo potuto verificare il tuo documento. Riprova con una foto più chiara o un altro documento.', color: '#EF4444', icon: '❌' },
-    pending: { text: 'Verifica necessaria', sub: 'Completa la verifica del tuo account per iniziare a ricevere richieste.', color: '#2563EB', icon: '🔒' },
+    in_review: { text: 'Verifica in corso', sub: 'Il tuo documento è in fase di revisione. Ti informeremo quando il controllo sarà completato.', color: '#B98A2F', icon: '⏳' },
+    rejected: { text: 'Verifica fallita', sub: 'Non abbiamo potuto verificare il tuo documento. Riprova con una foto più chiara o un altro documento.', color: '#C43D2F', icon: '❌' },
+    pending: { text: 'Verifica necessaria', sub: 'Completa la verifica del tuo account per iniziare a ricevere richieste.', color: '#1E5B3E', icon: '🔒' },
   };
 
   const msg = statusMessages[status] || statusMessages.pending;
@@ -1409,7 +1409,7 @@ function ProVerifyPage() {
         className: 'btn-primary',
         onClick: startVerification,
         disabled: starting,
-        style: 'width:100%;padding:14px;font-size:16px;background:#EF4444'
+        style: 'width:100%;padding:14px;font-size:16px;background:#C43D2F'
       }, starting ? '⏳ Riavvio...' : '🔄 Riprova verifica'),
 
       (status === 'pending' || status === 'in_review') && h('button', {
@@ -1419,7 +1419,7 @@ function ProVerifyPage() {
         style: 'width:100%;padding:14px;font-size:16px'
       }, starting ? '⏳ Avvio...' : '▶ Inizia verifica'),
 
-      error && h('div', { style: 'margin-top:16px;padding:12px;background:#FEF2F2;border-radius:8px;color:#EF4444;font-size:13px' }, error),
+      error && h('div', { style: 'margin-top:16px;padding:12px;background:#FBECE8;border-radius:8px;color:#C43D2F;font-size:13px' }, error),
 
       h('div', { style: 'margin-top:40px;padding:16px;background:#F8FAFC;border-radius:12px;text-align:left' },
         h('div', { style: 'font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text)' }, 'Cosa serve per la verifica:'),
@@ -1548,7 +1548,7 @@ function ProDashboardPage() {
   return h(Fragment, null,
     // Verification banner for non-verified pros
     verifStatus !== 'verified' && h('div', {
-      style: `margin:0 -16px 16px;padding:12px 16px;background:${verifStatus === 'rejected' ? '#FEF2F2' : '#EFF6FF'};border-bottom:1px solid ${verifStatus === 'rejected' ? '#FECACA' : '#BFDBFE'};display:flex;align-items:center;gap:10px;cursor:pointer`,
+      style: `margin:0 -16px 16px;padding:12px 16px;background:${verifStatus === 'rejected' ? '#FBECE8' : '#EAF0E7'};border-bottom:1px solid ${verifStatus === 'rejected' ? '#FECACA' : '#BFDBFE'};display:flex;align-items:center;gap:10px;cursor:pointer`,
       onClick: () => navigate('/pro/verify')
     },
       h('span', { style: 'font-size:18px' }, verifStatus === 'rejected' ? '❌' : verifStatus === 'in_review' ? '⏳' : '🔒'),
@@ -1556,11 +1556,11 @@ function ProDashboardPage() {
         h('div', { style: `font-size:13px;font-weight:600;color:${verifStatus === 'rejected' ? '#DC2626' : '#1D4ED8'}` },
           verifStatus === 'rejected' ? 'Verifica fallita' : verifStatus === 'in_review' ? 'Verifica in corso' : 'Account in verifica'
         ),
-        h('div', { style: 'font-size:11px;color:#64748B' },
+        h('div', { style: 'font-size:11px;color:#6C7268' },
           verifStatus === 'rejected' ? 'Riprova per attivare il tuo account' : 'Completa la verifica per ricevere prenotazioni'
         )
       ),
-      h('span', { style: 'color:#94A3B8;font-size:18px' }, '›')
+      h('span', { style: 'color:#9AA096;font-size:18px' }, '›')
     ),
 
     // Header
@@ -1767,7 +1767,7 @@ function ProAppointmentsPage() {
             h('div', { style: 'display:flex;flex-direction:column;align-items:flex-end;gap:4px' },
               h('div', { className: 'appt-earnings' }, b.price ? '€' + Math.max(0, parseFloat(b.price) - 10) : '—'),
               h('span', {
-                style: `font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;${b.status === 'accepted' || b.status === 'confirmed' ? 'background:#D1FAE5;color:#065F46' : b.status === 'pending' ? 'background:#FEF3C7;color:#92400E' : b.status === 'completed' ? 'background:#EFF6FF;color:var(--primary)' : 'background:#FEE2E2;color:#991B1B'}`
+                style: `font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;${b.status === 'accepted' || b.status === 'confirmed' ? 'background:#D1FAE5;color:#065F46' : b.status === 'pending' ? 'background:#F4EBD6;color:#92400E' : b.status === 'completed' ? 'background:#EAF0E7;color:var(--primary)' : 'background:#F6DBD5;color:#991B1B'}`
               }, STATUS_NAMES[b.status] || b.status)
             )
           ))
@@ -1835,7 +1835,7 @@ function ProProfilePage() {
         ) : null,
         h('div', { className: 'profile-row' },
           h('span', { className: 'profile-label' }, 'Stato'),
-          h('span', { className: 'profile-value', style: pro?.is_available ? 'color:#10B981' : 'color:#EF4444' },
+          h('span', { className: 'profile-value', style: pro?.is_available ? 'color:#2E7D53' : 'color:#C43D2F' },
             pro?.is_available ? '● Online' : '○ Offline'
           )
         )
@@ -2424,7 +2424,7 @@ function ProDetailPage() {
 
   return h(Fragment, null,
     // Header
-    h('div', { style: 'background:linear-gradient(135deg,#0891B2 0%,#0E7490 100%);color:white;padding:24px 16px 20px;border-radius:0 0 20px 20px;margin-bottom:16px' },
+    h('div', { style: 'background:linear-gradient(135deg,#1E5B3E 0%,#14432E 100%);color:white;padding:24px 16px 20px;border-radius:0 0 20px 20px;margin-bottom:16px' },
       h('button', { onClick: () => navigate(-1), style: 'background:none;border:none;color:rgba(255,255,255,.8);font-size:13px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:4px;padding:0' },
         Icon('arrowLeft', 16), 'Indietro'
       ),
@@ -2466,7 +2466,7 @@ function ProDetailPage() {
       }, 'Prenota ora'),
       pro.phone && h('a', {
         href: 'tel:' + pro.phone,
-        style: 'width:48px;height:48px;background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;border-radius:12px;font-size:22px;display:flex;align-items:center;justify-content:center;text-decoration:none'
+        style: 'width:48px;height:48px;background:#EAF0E7;color:#1E5B3E;border:1px solid #CFE0CC;border-radius:12px;font-size:22px;display:flex;align-items:center;justify-content:center;text-decoration:none'
       }, '📞')
     ),
 
@@ -2516,12 +2516,12 @@ function ProDetailPage() {
                   )
                 ),
                 h('div', { style: 'display:flex;flex-direction:column;align-items:flex-end;gap:6px' },
-                  h('div', { style: 'font-size:15px;font-weight:700;color:#F59E0B' }, '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)),
+                  h('div', { style: 'font-size:15px;font-weight:700;color:#B98A2F' }, '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)),
                   h('button', {
                     onClick: () => handleReport(r.id),
                     disabled: reportingId === r.id || reportedIds.has(r.id),
                     title: 'Segnala recensione',
-                    style: `background:none;border:none;cursor:pointer;font-size:12px;color:${reportedIds.has(r.id) ? '#94A3B8' : '#EF4444'};padding:0;opacity:${reportingId === r.id ? 0.5 : 1}`
+                    style: `background:none;border:none;cursor:pointer;font-size:12px;color:${reportedIds.has(r.id) ? '#9AA096' : '#C43D2F'};padding:0;opacity:${reportingId === r.id ? 0.5 : 1}`
                   }, reportedIds.has(r.id) ? '🚩 Segnalata' : '🚩')
                 )
               ),
