@@ -35,7 +35,9 @@ const safeStorage = {
 };
 
 // === ICONS (inline SVG) ===
-const Icon = ({ name, size = 20 }) => {
+const Icon = (nameOrProps, sizeArg) => {
+  const name = typeof nameOrProps === 'string' ? nameOrProps : (nameOrProps && nameOrProps.name);
+  const size = typeof nameOrProps === 'string' ? (sizeArg || 20) : ((nameOrProps && nameOrProps.size) || 20);
   const icons = {
     home: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
       h('path', { d: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' }),
@@ -79,6 +81,47 @@ const Icon = ({ name, size = 20 }) => {
     mapPin: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
       h('path', { d: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z' }),
       h('circle', { cx: 12, cy: 10, r: 3 })),
+    bolt: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('polygon', { points: '13 2 3 14 12 14 11 22 21 10 12 10 13 2' })),
+    wrench: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z' })),
+    car: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11' }),
+      h('path', { d: 'M3 16v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3' }),
+      h('circle', { cx: 7.5, cy: 16.5, r: 1.5 }), h('circle', { cx: 16.5, cy: 16.5, r: 1.5 })),
+    sparkles: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z' }),
+      h('path', { d: 'M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z' })),
+    phone: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z' })),
+    mail: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' }),
+      h('polyline', { points: '22,6 12,13 2,6' })),
+    inbox: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('polyline', { points: '22 12 16 12 14 15 10 15 8 12 2 12' }),
+      h('path', { d: 'M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z' })),
+    map: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('polygon', { points: '1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6' }),
+      h('line', { x1: 8, y1: 2, x2: 8, y2: 18 }), h('line', { x1: 16, y1: 6, x2: 16, y2: 22 })),
+    list: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('line', { x1: 8, y1: 6, x2: 21, y2: 6 }), h('line', { x1: 8, y1: 12, x2: 21, y2: 12 }), h('line', { x1: 8, y1: 18, x2: 21, y2: 18 }),
+      h('line', { x1: 3, y1: 6, x2: 3.01, y2: 6 }), h('line', { x1: 3, y1: 12, x2: 3.01, y2: 12 }), h('line', { x1: 3, y1: 18, x2: 3.01, y2: 18 })),
+    fileText: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' }),
+      h('polyline', { points: '14 2 14 8 20 8' }),
+      h('line', { x1: 16, y1: 13, x2: 8, y2: 13 }), h('line', { x1: 16, y1: 17, x2: 8, y2: 17 })),
+    shieldCheck: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' }),
+      h('polyline', { points: '9 12 11 14 15 10' })),
+    refresh: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('polyline', { points: '23 4 23 10 17 10' }),
+      h('path', { d: 'M20.49 15a9 9 0 1 1-2.12-9.36L23 10' })),
+    x: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('line', { x1: 18, y1: 6, x2: 6, y2: 18 }), h('line', { x1: 6, y1: 6, x2: 18, y2: 18 })),
+    hardhat: h('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      h('path', { d: 'M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z' }),
+      h('path', { d: 'M10 10V5a2 2 0 1 1 4 0v5' }),
+      h('path', { d: 'M4 15v-3a8 8 0 0 1 16 0v3' })),
   };
   return icons[name] || null;
 };
@@ -269,36 +312,43 @@ function BottomNav() {
 // === HOME PAGE ===
 function HomePage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     track('page_view_home');
   }, []);
 
+  const firstName = user?.name ? user.name.split(' ')[0] : null;
   const services = [
-    { id: 'carwash', icon: '🚿', name: 'Car Wash', desc: 'Lavaggio auto a domicilio', price: 'da €25' },
-    { id: 'idraulica', icon: '🔧', name: 'Idraulica', desc: 'Idraulici certificati', price: 'da €40' },
-    { id: 'elettricista', icon: '⚡', name: 'Elettricista', desc: 'Elettricisti certificati', price: 'da €45' },
+    { id: 'carwash', icon: 'car', name: 'Car Wash', desc: 'Lavaggio auto a domicilio', price: 'da €25' },
+    { id: 'idraulica', icon: 'wrench', name: 'Idraulica', desc: 'Idraulici certificati', price: 'da €40' },
+    { id: 'elettricista', icon: 'bolt', name: 'Elettricista', desc: 'Elettricisti certificati', price: 'da €45' },
   ];
   return h(Fragment, null,
     // Hero
     h('div', { className: 'hero' },
-      h('h1', null, 'FixGo'),
-      h('p', null, 'Professionisti a domicilio, in pochi tap')
+      h('p', { className: 'hero-eyebrow' }, firstName ? `Ciao ${firstName}` : 'Benvenuto'),
+      h('h1', null, 'Di cosa hai bisogno oggi?'),
+      h('p', null, 'Professionisti verificati, a casa tua.')
     ),
 
     // Services
     h('div', { className: 'services-section' },
       h('h2', { className: 'section-title' }, 'Servizi'),
       services.map(s =>
-        h('div', { key: s.id, className: 'service-card' },
-          h('div', { className: 'service-icon' }, s.icon),
+        h('div', {
+          key: s.id, className: 'service-card',
+          onClick: () => navigate('/book', { state: { serviceType: s.id } })
+        },
+          h('div', { className: 'service-icon' }, Icon(s.icon, 22)),
           h('div', { className: 'service-info' },
             h('div', { className: 'service-name' }, s.name),
-            h('div', { className: 'service-desc' }, s.desc)
+            h('div', { className: 'service-desc' }, s.desc),
+            h('div', { className: 'service-price' }, s.price)
           ),
           h('button', {
             className: 'btn-book',
-            onClick: () => navigate('/book', { state: { serviceType: s.id } }),
+            onClick: (e) => { e.stopPropagation(); navigate('/book', { state: { serviceType: s.id } }); },
           }, 'Prenota')
         )
       )
@@ -499,7 +549,7 @@ function BookPage() {
           h('div', { className: 'pro-summary-name' }, professionalName),
           h('div', { className: 'pro-summary-meta' },
             serviceLabels[serviceType] || serviceType,
-            distanceKm ? ` · 📍 ${distanceKm} km` : ''
+            distanceKm ? ` · ${distanceKm} km` : ''
           )
         ),
         h('div', { className: 'pro-summary-price' }, priceDisplay)
@@ -508,7 +558,7 @@ function BookPage() {
       // Step 1: Date picker
       step === 1 && h(Fragment, null,
         h('div', { className: 'asap-card', onClick: handleAsapSelect },
-          h('div', { className: 'asap-icon' }, '⚡'),
+          h('div', { className: 'asap-icon' }, Icon('bolt', 20)),
           h('div', { className: 'asap-info' },
             h('div', { className: 'asap-title' }, 'Il prima possibile'),
             h('div', { className: 'asap-sub' }, 'Ti mandiamo il primo professionista disponibile in zona')
@@ -517,7 +567,7 @@ function BookPage() {
         ),
         h('div', { className: 'asap-divider' }, 'oppure scegli data e ora'),
         h('div', { style: 'font-size:15px;font-weight:700;margin-bottom:14px;color:var(--text)' },
-          '📅 Quando vuoi il servizio?'
+          'Quando vuoi il servizio?'
         ),
         h('div', { className: 'date-scroll' },
           dateOptions.map(d => h('div', {
@@ -538,7 +588,7 @@ function BookPage() {
       // Step 2: Time slots
       step === 2 && h(Fragment, null,
         h('div', { style: 'font-size:15px;font-weight:700;margin-bottom:14px;color:var(--text)' },
-          '⏰ Seleziona un orario — ' + (selectedDate?.display || '')
+          'Seleziona un orario — ' + (selectedDate?.display || '')
         ),
         loadingSlots
           ? h('div', { style: 'text-align:center;padding:20px;color:var(--text-light)' }, 'Caricamento orari...')
@@ -554,7 +604,7 @@ function BookPage() {
       // Step 3: Address + notes
       step === 3 && h(Fragment, null,
         h('div', { style: 'font-size:15px;font-weight:700;margin-bottom:14px;color:var(--text)' },
-          '📍 Dove ti serve?'
+          'Dove ti serve?'
         ),
         h('div', { className: 'error-msg' }, error),
         h('div', { className: 'form-group' },
@@ -598,7 +648,7 @@ function BookPage() {
           )
         ),
         h('button', { className: 'btn-primary', onClick: handleConfirm, disabled: loading },
-          loading ? h('span', { className: 'spinner' }) : '✓ Conferma Prenotazione'
+          loading ? h('span', { className: 'spinner' }) : 'Conferma prenotazione'
         )
       )
     ),
@@ -621,7 +671,7 @@ function BookPage() {
               }, paymentLoading ? 'Caricamento...' : 'Paga ora con carta')
             )
           : createdBooking.payment_status === 'paid'
-            ? h('div', { className: 'paid-badge' }, '✓ Pagamento completato')
+            ? h('div', { className: 'paid-badge' }, 'Pagamento completato')
             : h('div', { className: 'failed-badge' }, 'Pagamento fallito')
       )
     ),
@@ -645,7 +695,7 @@ function ConfirmScreen({ booking, navigate }) {
   return h(Fragment, null,
     // Hero
     h('div', { className: 'confirm-hero' },
-      h('div', { className: 'confirm-check' }, '✓'),
+      h('div', { className: 'confirm-check' }, Icon('check', 30)),
       h('h1', null, 'Prenotazione Confermata!'),
       h('p', null, 'Il professionista ti contatterà presto per confermare i dettagli.'),
       h('div', { className: 'confirm-booking-id' }, '#' + (booking.id || booking.booking_id || '—'))
@@ -653,49 +703,49 @@ function ConfirmScreen({ booking, navigate }) {
 
     // Notification note
     h('div', { className: 'notification-note' },
-      h('span', { className: 'notification-note-icon' }, '📧'),
+      h('span', { className: 'notification-note-icon' }, Icon('mail', 16)),
       h('span', null, "Riceverai un'email di conferma e un reminder prima dell'appuntamento.")
     ),
 
     // Details
     h('div', { className: 'confirm-details' },
       booking.scheduled_at && h('div', { className: 'confirm-row' },
-        h('span', { className: 'confirm-row-icon' }, '📅'),
+        h('span', { className: 'confirm-row-icon' }, Icon('calendar', 18)),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Data e ora'),
           h('div', { className: 'confirm-row-value' }, formatDate(booking.scheduled_at))
         )
       ),
       h('div', { className: 'confirm-row' },
-        h('span', { className: 'confirm-row-icon' }, '🔧'),
+        h('span', { className: 'confirm-row-icon' }, Icon('wrench', 18)),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Servizio'),
           h('div', { className: 'confirm-row-value' }, serviceLabels[booking.service_type] || booking.service_type)
         )
       ),
       h('div', { className: 'confirm-row' },
-        h('span', { className: 'confirm-row-icon' }, '📍'),
+        h('span', { className: 'confirm-row-icon' }, Icon('mapPin', 18)),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Indirizzo'),
           h('div', { className: 'confirm-row-value' }, booking.address)
         )
       ),
       booking.professional_name && h('div', { className: 'confirm-row' },
-        h('span', { className: 'confirm-row-icon' }, '👷'),
+        h('span', { className: 'confirm-row-icon' }, Icon('hardhat', 18)),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Professionista'),
           h('div', { className: 'confirm-row-value' }, booking.professional_name)
         )
       ),
       booking.price && h('div', { className: 'confirm-row' },
-        h('span', { className: 'confirm-row-icon' }, '💰'),
+        h('span', { className: 'confirm-row-icon' }, Icon('euro', 18)),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Prezzo stimato'),
           h('div', { className: 'confirm-row-value', style: 'color:#1E5B3E' }, '€' + parseFloat(booking.price).toFixed(2))
         )
       ),
       booking.notes && h('div', { className: 'confirm-row' },
-        h('span', { className: 'confirm-row-icon' }, '📝'),
+        h('span', { className: 'confirm-row-icon' }, Icon('fileText', 18)),
         h('div', { className: 'confirm-row-info' },
           h('div', { className: 'confirm-row-label' }, 'Note'),
           h('div', { className: 'confirm-row-value' }, booking.notes)
@@ -709,7 +759,7 @@ function ConfirmScreen({ booking, navigate }) {
         className: 'btn-primary',
         onClick: () => navigate('/bookings'),
         style: 'background:var(--success);margin-bottom:10px'
-      }, '👀 Vedi le mie prenotazioni'),
+      }, 'Vedi le mie prenotazioni'),
       h('button', {
         onClick: () => navigate('/'),
         style: 'width:100%;background:white;color:var(--text);border:2px solid var(--border);border-radius:14px;padding:14px;font-size:15px;font-weight:700;min-height:50px'
@@ -840,7 +890,7 @@ function MapPage() {
       if (!pro.lat || !pro.lng) return;
       const dist = pro.distance_km != null ? parseFloat(pro.distance_km).toFixed(1) : '?';
       const stars = pro.rating ? '★'.repeat(Math.round(parseFloat(pro.rating))) : '★'.repeat(3);
-      const serviceLabels = { carwash: '🚿 Car Wash', idraulica: '🔧 Idraulica', elettricista: '⚡ Elettricista', altro: '🔧 Servizio' };
+      const serviceLabels = { carwash: 'Car Wash', idraulica: 'Idraulica', elettricista: 'Elettricista', altro: 'Servizio' };
       const label = serviceLabels[pro.service_type] || pro.service_type;
       const color = urgency === 'high' ? '#C43D2F' : '#1E5B3E';
 
@@ -870,7 +920,7 @@ function MapPage() {
           <strong style="font-size:14px">${pro.name || 'Professionista FixGo'}</strong>
           <div style="font-size:12px;color:#6C7268;margin:4px 0">${label}</div>
           <div style="font-size:13px;color:#B98A2F;font-weight:700">${stars} ${parseFloat(pro.rating || 0).toFixed(1)}</div>
-          <div style="font-size:12px;color:#6C7268">📍 ${dist} km da te</div>
+          <div style="font-size:12px;color:#6C7268">${dist} km da te</div>
           <div style="font-size:11px;color:#9AA096;margin-top:4px">${pro.completed_jobs || 0} servizi · ${reviewLine}</div>
         </div>
       `;
@@ -897,7 +947,7 @@ function MapPage() {
   const serviceLabels = { carwash: 'Lavaggio Auto', idraulica: 'Idraulica', elettricista: 'Elettricista', altro: 'Altro' };
   const urgencyColors = { high: '#C43D2F', medium: '#B98A2F', low: '#2E7D53' };
   const urgencyBadge = urgency ? h('span', { style: `background:${urgencyColors[urgency] || '#6C7268'};color:white;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700` },
-    urgency === 'high' ? '🔴 Urgente' : urgency === 'medium' ? '🟡 Medio' : '🟢 Non urgente'
+    urgency === 'high' ? 'Urgente' : urgency === 'medium' ? 'Priorità media' : 'Non urgente'
   ) : null;
 
   return h(Fragment, null,
@@ -919,11 +969,11 @@ function MapPage() {
         h('button', {
           onClick: () => setViewMode('map'),
           style: `flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:${viewMode==='map'?'white':'rgba(255,255,255,.2)'};color:${viewMode==='map'?'#1E5B3E':'white'}`
-        }, '🗺️ Mappa'),
+        }, Icon('map', 15), ' Mappa'),
         h('button', {
           onClick: () => setViewMode('list'),
           style: `flex:1;padding:10px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;background:${viewMode==='list'?'white':'rgba(255,255,255,.2)'};color:${viewMode==='list'?'#1E5B3E':'white'}`
-        }, '📋 Lista')
+        }, Icon('list', 15), ' Elenco')
       )
     ),
 
@@ -1010,11 +1060,11 @@ function MapPage() {
           to: `/pro/${activePro.id}`,
           onClick: () => setActivePro(null),
           style: 'width:48px;background:#F0F9FF;color:#1E5B3E;border:1px solid #BAE6FD;border-radius:12px;font-size:18px;display:flex;align-items:center;justify-content:center;text-decoration:none'
-        }, '👤'),
+        }, Icon('user', 18)),
         activePro.phone && h('a', {
           href: 'tel:' + activePro.phone,
           style: 'width:48px;background:#EAF0E7;color:#1E5B3E;border:1px solid #CFE0CC;border-radius:12px;font-size:20px;display:flex;align-items:center;justify-content:center;text-decoration:none'
-        }, '📞')
+        }, Icon('phone', 18))
       )
     ),
 
@@ -1156,7 +1206,7 @@ function PhotoAnalyzerPage() {
       },
         analyzing
           ? h('span', { className: 'spinner' })
-          : '🔍 Analizza con AI'
+          : 'Analizza con AI'
       ),
 
       // Loading
@@ -1256,7 +1306,7 @@ function PhotoAnalyzerPage() {
           h('button', {
             onClick: viewMap,
             style: 'display:block;width:100%;background:linear-gradient(135deg,#1E5B3E,#14432E);color:white;font-size:15px;font-weight:700;padding:14px;border:none;border-radius:12px;margin-top:10px;min-height:48px'
-          }, '🗺️ Vedi sulla mappa — professionisti vicino a te')
+          }, 'Vedi sulla mappa — professionisti vicino a te')
         )
       )
     ),
@@ -1300,7 +1350,7 @@ function PaymentSuccessPage() {
 
   return h('div', { className: 'page' },
     h('div', { style: 'text-align:center;padding:60px 16px' },
-      h('div', { style: 'font-size:64px;margin-bottom:16px' }, '🎉'),
+      h('div', { className: 'confirm-check', style: 'margin:0 auto 16px' }, Icon('check', 30)),
       h('h1', { className: 'page-title', style: 'margin-bottom:8px' }, 'Pagamento completato!'),
       h('p', { style: 'color:var(--text-light);margin-bottom:32px' },
         'La tua prenotazione #' + id + ' è stata confermata.'
@@ -1419,9 +1469,9 @@ function ProVerifyPage() {
   }
 
   const statusMessages = {
-    in_review: { text: 'Verifica in corso', sub: 'Il tuo documento è in fase di revisione. Ti informeremo quando il controllo sarà completato.', color: '#B98A2F', icon: '⏳' },
-    rejected: { text: 'Verifica fallita', sub: 'Non abbiamo potuto verificare il tuo documento. Riprova con una foto più chiara o un altro documento.', color: '#C43D2F', icon: '❌' },
-    pending: { text: 'Verifica necessaria', sub: 'Completa la verifica del tuo account per iniziare a ricevere richieste.', color: '#1E5B3E', icon: '🔒' },
+    in_review: { text: 'Verifica in corso', sub: 'Il tuo documento è in fase di revisione. Ti informeremo quando il controllo sarà completato.', color: '#B98A2F', icon: '' },
+    rejected: { text: 'Verifica fallita', sub: 'Non abbiamo potuto verificare il tuo documento. Riprova con una foto più chiara o un altro documento.', color: '#C43D2F', icon: '' },
+    pending: { text: 'Verifica necessaria', sub: 'Completa la verifica del tuo account per iniziare a ricevere richieste.', color: '#1E5B3E', icon: '' },
   };
 
   const msg = statusMessages[status] || statusMessages.pending;
@@ -1439,14 +1489,14 @@ function ProVerifyPage() {
         onClick: startVerification,
         disabled: starting,
         style: 'width:100%;padding:14px;font-size:16px;background:#C43D2F'
-      }, starting ? '⏳ Riavvio...' : '🔄 Riprova verifica'),
+      }, starting ? 'Riavvio…' : 'Riprova verifica'),
 
       (status === 'pending' || status === 'in_review') && h('button', {
         className: 'btn-primary',
         onClick: startVerification,
         disabled: starting,
         style: 'width:100%;padding:14px;font-size:16px'
-      }, starting ? '⏳ Avvio...' : '▶ Inizia verifica'),
+      }, starting ? 'Avvio...' : '▶ Inizia verifica'),
 
       error && h('div', { style: 'margin-top:16px;padding:12px;background:#FBECE8;border-radius:8px;color:#C43D2F;font-size:13px' }, error),
 
@@ -1580,7 +1630,7 @@ function ProDashboardPage() {
       style: `margin:0 -16px 16px;padding:12px 16px;background:${verifStatus === 'rejected' ? '#FBECE8' : '#EAF0E7'};border-bottom:1px solid ${verifStatus === 'rejected' ? '#FECACA' : '#BFDBFE'};display:flex;align-items:center;gap:10px;cursor:pointer`,
       onClick: () => navigate('/pro/verify')
     },
-      h('span', { style: 'font-size:18px' }, verifStatus === 'rejected' ? '❌' : verifStatus === 'in_review' ? '⏳' : '🔒'),
+      h('span', { style: 'font-size:18px' }, verifStatus === 'rejected' ? Icon('x', 18) : verifStatus === 'in_review' ? Icon('clock', 18) : ''),
       h('div', { style: 'flex:1' },
         h('div', { style: `font-size:13px;font-weight:600;color:${verifStatus === 'rejected' ? '#DC2626' : '#1D4ED8'}` },
           verifStatus === 'rejected' ? 'Verifica fallita' : verifStatus === 'in_review' ? 'Verifica in corso' : 'Account in verifica'
@@ -1594,7 +1644,7 @@ function ProDashboardPage() {
 
     // Header
     h('div', { className: 'pro-header' },
-      h('div', { className: 'pro-avatar' }, '👷'),
+      h('div', { className: 'pro-avatar' }, Icon('hardhat', 22)),
       h('div', { className: 'pro-info' },
         h('div', { className: 'pro-name' }, user?.name || 'Professionista'),
         h('span', { className: `pro-badge ${pro?.is_available ? 'badge-online' : 'badge-offline'}` },
@@ -1639,7 +1689,7 @@ function ProDashboardPage() {
       ),
       pendingRequests.length === 0
         ? h('div', { className: 'pro-empty' },
-            h('div', { className: 'pro-empty-icon' }, '📭'),
+            h('div', { className: 'pro-empty-icon' }, Icon('inbox', 24)),
             h('div', { className: 'pro-empty-text' }, 'Nessuna richiesta al momento')
           )
         : pendingRequests.map(b =>
@@ -1656,18 +1706,18 @@ function ProDashboardPage() {
               h('div', { className: 'request-client' }, 'Cliente: ' + maskName(b.client_name)),
               h('div', { className: 'request-address' }, extractCity(b.address)),
               h('div', { className: 'request-meta' },
-                h('span', { className: 'meta-tag' }, '📍 ', extractCity(b.address)),
-                b.price ? h('span', { className: 'meta-tag' }, '💰 €' + b.price) : null
+                h('span', { className: 'meta-tag' }, Icon('mapPin', 13), ' ', extractCity(b.address)),
+                b.price ? h('span', { className: 'meta-tag' }, Icon('euro', 13), ' €' + b.price) : null
               ),
               h('div', { className: 'request-body' },
-                h('div', { className: 'photo-thumb' }, '📷'),
+                h('div', { className: 'photo-thumb' }, Icon('camera', 18)),
                 h('div', { className: 'request-info' },
                   h('div', { className: 'price-estimate' }, b.price ? '€' + b.price : 'Prezzo da definire')
                 )
               ),
               h('div', { className: 'request-actions' },
-                h('button', { className: 'btn-accept', onClick: () => handleAction(b.id, 'accepted') }, '✓ Accetta'),
-                h('button', { className: 'btn-decline', onClick: () => handleAction(b.id, 'declined') }, '✗ Rifiuta')
+                h('button', { className: 'btn-accept', onClick: () => handleAction(b.id, 'accepted') }, 'Accetta'),
+                h('button', { className: 'btn-decline', onClick: () => handleAction(b.id, 'declined') }, 'Rifiuta')
               )
             )
           )
@@ -1676,12 +1726,12 @@ function ProDashboardPage() {
     // Upcoming Appointments
     h('div', { className: 'pro-section' },
       h('div', { className: 'pro-section-title' },
-        h('span', null, '📅'),
+        h('span', null, Icon('calendar', 15)),
         'Prossimi appuntamenti'
       ),
       upcoming.length === 0
         ? h('div', { className: 'pro-empty' },
-            h('div', { className: 'pro-empty-icon' }, '📅'),
+            h('div', { className: 'pro-empty-icon' }, Icon('calendar', 24)),
             h('div', { className: 'pro-empty-text' }, 'Nessun appuntamento confermato')
           )
         : upcoming.map(b => {
@@ -1778,7 +1828,7 @@ function ProAppointmentsPage() {
     ),
     h('div', { style: 'padding:0 16px' },
       filtered.length === 0
-        ? h('div', { className: 'pro-empty' }, h('div', { className: 'pro-empty-icon' }, '📋'), h('div', { className: 'pro-empty-text' }, 'Nessun appuntamento'))
+        ? h('div', { className: 'pro-empty' }, h('div', { className: 'pro-empty-icon' }, Icon('fileText', 24)), h('div', { className: 'pro-empty-text' }, 'Nessun appuntamento'))
         : filtered.map(b => h('div', {
             key: b.id,
             className: 'appointment-card',
@@ -1848,7 +1898,7 @@ function ProProfilePage() {
     h('div', { className: 'profile-section' },
       h('div', { className: 'profile-card' },
         h('div', { style: 'display:flex;align-items:center;gap:14px;margin-bottom:16px' },
-          h('div', { style: 'width:56px;height:56px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:28px;color:white' }, '👷'),
+          h('div', { style: 'width:56px;height:56px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:28px;color:white' }, ''),
           h('div', null,
             h('div', { style: 'font-size:18px;font-weight:800' }, user?.name),
             h('div', { style: 'font-size:13px;color:var(--text-light)' }, user?.email)
@@ -1951,7 +2001,7 @@ function ReviewModal({ booking, onClose, onSubmit }) {
     return h('div', { className: 'review-overlay' },
       h('div', { className: 'review-modal' },
         h('div', { className: 'review-success' },
-          h('div', { className: 'big-emoji' }, '🙏'),
+          h('div', { className: 'confirm-check', style: 'margin:0 auto 16px' }, Icon('check', 30)),
           h('h2', null, 'Grazie per la tua recensione!'),
           h('p', null, 'La tua opinione aiuta altri clienti a scegliere il professionista migliore.'),
           h('button', {
@@ -2351,7 +2401,7 @@ function ForgotPasswordPage() {
 
   if (sent) return h('div', { className: 'auth-page' },
     h('div', { style: 'text-align:center' },
-      h('div', { style: 'fontSize:48,marginBottom:16' }, '✓'),
+      h('div', { className: 'confirm-check', style: 'margin:0 auto 16px' }, Icon('check', 30)),
       h('h2', { style: 'fontSize:22;fontWeight:700;marginBottom:8' }, 'Email inviata'),
       h('p', { style: 'color:var(--text-light)' }, "Se l'email esiste, riceverai un link per reimpostare la password.")
     ),
@@ -2496,7 +2546,7 @@ function ProDetailPage() {
       pro.phone && h('a', {
         href: 'tel:' + pro.phone,
         style: 'width:48px;height:48px;background:#EAF0E7;color:#1E5B3E;border:1px solid #CFE0CC;border-radius:12px;font-size:22px;display:flex;align-items:center;justify-content:center;text-decoration:none'
-      }, '📞')
+      }, Icon('phone', 18))
     ),
 
     // Reviews section
@@ -2529,7 +2579,7 @@ function ProDetailPage() {
       // Reviews list
       reviews.length === 0
         ? h('div', { style: 'text-align:center;color:var(--text-light);padding:40px 0' },
-            h('div', { style: 'font-size:32px;margin-bottom:8px' }, '💬'),
+            h('div', { className: 'empty-state-icon', style: 'margin:0 auto 12px' }, Icon('chat', 24)),
             filterRating || filterSearch
               ? 'Nessuna recensione corrisponde ai filtri.'
               : 'Nessuna recensione ancora per questo professionista.'
@@ -2551,7 +2601,7 @@ function ProDetailPage() {
                     disabled: reportingId === r.id || reportedIds.has(r.id),
                     title: 'Segnala recensione',
                     style: `background:none;border:none;cursor:pointer;font-size:12px;color:${reportedIds.has(r.id) ? '#9AA096' : '#C43D2F'};padding:0;opacity:${reportingId === r.id ? 0.5 : 1}`
-                  }, reportedIds.has(r.id) ? '🚩 Segnalata' : '🚩')
+                  }, reportedIds.has(r.id) ? 'Segnalata' : 'Segnala')
                 )
               ),
               r.comment && h('p', { style: 'font-size:13px;color:var(--text);line-height:1.5;margin:0' }, r.comment)
