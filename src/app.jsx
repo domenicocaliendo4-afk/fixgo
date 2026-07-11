@@ -248,7 +248,7 @@ function BottomNav() {
   if (isAuthPage) return null;
   const items = [
     { to: '/', icon: 'home', label: 'Home' },
-    { to: '/analyze', icon: 'camera', label: 'Diagnostica' },
+    { to: '/analyze', icon: 'camera', label: 'Ricerca AI' },
     { to: '/map', icon: 'mapPin', label: 'Mappa' },
     { to: '/bookings', icon: 'calendar', label: 'Prenotazioni' },
     { to: '/profile', icon: 'user', label: 'Profilo' },
@@ -404,6 +404,16 @@ function BookPage() {
     track('booking_step_date', { serviceType, date: dateObj.iso });
   };
 
+  // "Il prima possibile": salta la scelta di data e ora,
+  // il primo professionista disponibile viene inviato subito.
+  const handleAsapSelect = () => {
+    const soon = new Date(Date.now() + 45 * 60000); // arrivo stimato entro ~45 min
+    setSelectedDate({ iso: soon.toISOString().split('T')[0], display: 'Il prima possibile', asap: true });
+    setSelectedTime({ time: 'Il prima possibile', iso: soon.toISOString(), asap: true });
+    setStep(3);
+    track('booking_step_asap', { serviceType });
+  };
+
   const handleTimeSelect = (slot) => {
     if (!slot.available) return;
     setSelectedTime(slot);
@@ -497,6 +507,15 @@ function BookPage() {
 
       // Step 1: Date picker
       step === 1 && h(Fragment, null,
+        h('div', { className: 'asap-card', onClick: handleAsapSelect },
+          h('div', { className: 'asap-icon' }, '⚡'),
+          h('div', { className: 'asap-info' },
+            h('div', { className: 'asap-title' }, 'Il prima possibile'),
+            h('div', { className: 'asap-sub' }, 'Ti mandiamo il primo professionista disponibile in zona')
+          ),
+          h('div', { className: 'asap-arrow' }, '→')
+        ),
+        h('div', { className: 'asap-divider' }, 'oppure scegli data e ora'),
         h('div', { style: 'font-size:15px;font-weight:700;margin-bottom:14px;color:var(--text)' },
           '📅 Quando vuoi il servizio?'
         ),
@@ -565,10 +584,10 @@ function BookPage() {
             h('span', { className: 'label' }, 'Servizio'), h('span', { className: 'value' }, serviceLabels[serviceType] || serviceType)
           ),
           selectedDate && h('div', { className: 'summary-row' },
-            h('span', { className: 'label' }, 'Data'),
+            h('span', { className: 'label' }, selectedDate.asap ? 'Arrivo' : 'Data'),
             h('span', { className: 'value' }, selectedDate.display)
           ),
-          selectedTime && h('div', { className: 'summary-row' },
+          selectedTime && !selectedTime.asap && h('div', { className: 'summary-row' },
             h('span', { className: 'label' }, 'Orario'), h('span', { className: 'value' }, selectedTime.time)
           ),
           professionalName && h('div', { className: 'summary-row' },
@@ -1098,7 +1117,7 @@ function PhotoAnalyzerPage() {
     h('div', { className: 'photo-analyzer' },
       // Hero
       h('div', { className: 'analyzer-hero' },
-        h('h1', null, 'Analisi Foto AI'),
+        h('h1', null, 'Ricerca AI'),
         h('p', null, 'Carica una foto del problema — ti diciamo subito chi ti serve e quanto costerà.')
       ),
 

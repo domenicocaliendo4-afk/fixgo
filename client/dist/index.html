@@ -1266,6 +1266,34 @@
       border-radius: 14px; box-shadow: 0 12px 30px -10px rgba(0,0,0,.4);
     }
 
+    /* Opzione "Il prima possibile" nel flusso di prenotazione */
+    .asap-card {
+      display: flex; align-items: center; gap: 14px;
+      background: linear-gradient(135deg, #256A48, #143F2B);
+      border-radius: 18px; padding: 18px 16px;
+      color: #F5F4EE; cursor: pointer;
+      box-shadow: 0 14px 30px -14px rgba(20,63,43,.55);
+      transition: transform .15s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+    }
+    .asap-card:active { transform: scale(.975); }
+    .asap-icon {
+      width: 44px; height: 44px; flex-shrink: 0; border-radius: 999px;
+      background: rgba(245,244,238,.14); font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .asap-info { flex: 1; min-width: 0; }
+    .asap-title { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+    .asap-sub { font-size: 12.5px; color: rgba(245,244,238,.75); margin-top: 3px; line-height: 1.4; }
+    .asap-arrow { font-size: 18px; color: rgba(245,244,238,.8); }
+    .asap-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 18px 0 16px; font-size: 12px; color: var(--text-light);
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .asap-divider::before, .asap-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
     /* Accessibilità: rispetta chi disattiva le animazioni */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
